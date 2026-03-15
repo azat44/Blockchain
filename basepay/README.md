@@ -1,16 +1,80 @@
-# React + Vite
+# BasePay 💸
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mini-application Web3 de paiement de factures en stablecoin sur Base Sepolia.
 
-Currently, two official plugins are available:
+Projet réalisé dans le cadre du module **.decode × Base — 5A Tech Lead**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🎯 Concept
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+BasePay permet de simuler le paiement d'une facture en stablecoin (fUSDC) sur la blockchain Base Sepolia. L'utilisateur connecte son wallet MetaMask, visualise ses factures, approuve le contrat ERC-20, effectue le paiement on-chain et reçoit un reçu de transaction.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Stack technique
+
+- **Frontend** : React + Vite
+- **Blockchain** : Base Sepolia (L2 Ethereum — Coinbase)
+- **Smart Contracts** : Solidity 0.8.20
+- **Wallet** : MetaMask (window.ethereum)
+- **Agent IA** : Claude API (Anthropic)
+- **Social** : Farcaster / Warpcast (share on-chain)
+
+---
+
+## 📁 Structure du projet
+
+```
+├── Basepay.jsx           # Frontend React — interface complète
+├── FakeUSDC.sol          # Smart contract ERC-20 (stablecoin de test)
+├── InvoicePayment.sol    # Smart contract de paiement de factures
+└── basepay/              # Projet Vite (npm run dev)
+```
+
+---
+
+## 🔄 Parcours utilisateur
+
+1. **Connexion MetaMask** — le réseau Base Sepolia est ajouté automatiquement
+2. **Affichage des factures** — liste des factures en attente
+3. **Approve** — autorisation du contrat à dépenser les tokens fUSDC
+4. **Paiement on-chain** — appel à `payInvoice()` sur le smart contract
+5. **Reçu** — affichage du transaction hash + partage sur Farcaster
+
+---
+
+## 📜 Smart Contracts
+
+### FakeUSDC.sol
+Token ERC-20 simulant un stablecoin USDC avec 6 décimales. Inclut une fonction `faucet()` permettant à n'importe qui de mint 1000 fUSDC pour les tests.
+
+### InvoicePayment.sol
+Contrat de gestion de factures on-chain. Implémente le pattern `approve/transferFrom` standard ERC-20 pour sécuriser les paiements.
+
+---
+
+## 🤖 Agent IA
+
+L'application intègre un assistant IA (powered by Claude) accessible via le bouton en bas à droite. Il aide l'utilisateur à comprendre les concepts Web3 : ERC-20, approve/transferFrom, gas fees, testnets, stablecoins.
+
+---
+
+## 🚀 Lancer le projet
+
+```bash
+cd basepay
+npm install
+npm run dev
+```
+
+Ouvrir **http://localhost:5173** dans un navigateur avec MetaMask installé.
+
+---
+
+## 🌐 Réseau
+
+- **Réseau** : Base Sepolia Testnet
+- **Chain ID** : 84532
+- **RPC** : https://sepolia.base.org
+- **Explorer** : https://sepolia.basescan.org
